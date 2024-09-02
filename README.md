@@ -1,15 +1,6 @@
 # Passlify
 
-Passlify is a password validation and generation library for JavaScript and TypeScript environments. It provides robust tools for implementing and enforcing password policies in web applications, with optional React integration.
-
-## Core Functionality
-
-- Configurable password validation rules
-- Strength assessment using zxcvbn
-- Entropy calculation
-- Secure password generation
-- Internationalization support
-- TypeScript compatibility
+Passlify is a robust password validation and generation library for JavaScript and TypeScript, with built-in React components for easy integration into web applications.
 
 ## Installation
 
@@ -19,14 +10,14 @@ npm install passlify
 
 ## Usage
 
-### Standard Implementation
+### Basic usage
 
 ```javascript
-import Passlify from 'passlify';
+const Passlify = require('passlify');
 
 const options = {
-  min_characters: 12,
-  max_characters: 64,
+  min_characters: 8,
+  max_characters: 30,
   special_chars: true,
   min_special_chars: 1,
   alpha: true,
@@ -46,36 +37,52 @@ const result = passlify.check('P@ssw0rd123!');
 console.log(result);
 ```
 
-### React Integration
+### TypeScript usage
+
+```typescript
+import Passlify from 'passlify';
+
+// ... rest of the code is the same as in the JavaScript example
+```
+
+### React Component
 
 ```jsx
 import React from 'react';
 import { PasswordStrengthChecker } from 'passlify';
 
-function PasswordField() {
+function App() {
   return (
     <div>
-      <h2>Password Validation</h2>
+      <h1>Password Strength Checker</h1>
       <PasswordStrengthChecker />
     </div>
   );
 }
 ```
 
-## API Documentation
+## API
 
-Refer to [API.md](docs/API.md) for comprehensive documentation on available methods and configuration options.
+### Passlify(options)
 
-## Security Considerations
+Creates a new Passlify instance with the given options.
 
-- Passlify is a tool to assist in implementing password policies. It does not guarantee the security of your application.
-- Always use HTTPS for password transmission and follow best practices for password storage (e.g., using bcrypt or Argon2).
-- Regularly update the package to ensure you have the latest security patches.
+### passlify.check(password)
+
+Checks a password against the defined rules and returns a validation result.
+
+### passlify.generatePassword()
+
+Generates a password that meets all the defined rules.
+
+### passlify.checkAsync(password)
+
+Asynchronously checks a password against the defined rules.
 
 ## Contributing
 
-For guidelines on contributing to this project, see [CONTRIBUTING.md](CONTRIBUTING.md).
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
