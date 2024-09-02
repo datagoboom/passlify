@@ -33,8 +33,13 @@ const options = {
 
 const passlify = new Passlify(options);
 
+// Password validation
 const result = passlify.check('P@ssw0rd123!');
 console.log(result);
+
+// Password generation
+const generatedPassword = passlify.generatePassword();
+console.log('Generated password:', generatedPassword);
 ```
 
 ### TypeScript usage
@@ -59,6 +64,61 @@ function App() {
     </div>
   );
 }
+```
+
+### Password Generation Examples
+
+1. Generate a password with default options:
+
+```javascript
+const passlify = new Passlify();
+const password = passlify.generatePassword();
+console.log('Default generated password:', password);
+```
+
+2. Generate a longer password:
+
+```javascript
+const longPasswordOptions = {
+  min_characters: 16,
+  max_characters: 20,
+  special_chars: true,
+  min_special_chars: 2,
+  alpha: true,
+  numeric: true,
+  min_alpha: 8,
+  min_numeric: 2,
+  uppercase: true,
+  lowercase: true,
+  min_uppercase: 2,
+  min_lowercase: 2,
+};
+
+const passlifyLong = new Passlify(longPasswordOptions);
+const longPassword = passlifyLong.generatePassword();
+console.log('Long generated password:', longPassword);
+```
+
+3. Generate a password without special characters:
+
+```javascript
+const noSpecialCharsOptions = {
+  min_characters: 12,
+  max_characters: 16,
+  special_chars: false,
+  alpha: true,
+  numeric: true,
+  min_alpha: 8,
+  min_numeric: 2,
+  uppercase: true,
+  lowercase: true,
+  min_uppercase: 1,
+  min_lowercase: 1,
+};
+
+const passlifyNoSpecial = new Passlify(noSpecialCharsOptions);
+const noSpecialPassword = passlifyNoSpecial.generatePassword();
+console.log('Password without special characters:', noSpecialPassword);
 ```
 
 ## API
