@@ -1,8 +1,14 @@
 {
   "name": "passlify",
-  "version": "1.1.0",
+  "version": "1.2.3",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "directories": {
     "doc": "docs",
     "example": "examples",
@@ -13,7 +19,6 @@
     "build": "tsc",
     "prepublishOnly": "npm run build"
   },
-  "keywords": [],
   "author": "Andrew Long (datagoboom)",
   "repository": "https://github.com/datagoboom/passlify",
   "homepage": "https://github.com/datagoboom/passlify#readme",
@@ -35,5 +40,12 @@
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
-  }
+  },
+  "keywords": [
+    "password",
+    "security",
+    "password-generator",
+    "password-strength",
+    "password-validation"
+  ]
 }
