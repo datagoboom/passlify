@@ -1,0 +1,16 @@
+export default {
+  tooShort: 'La contraseña es demasiado corta',
+  tooLong: 'La contraseña es demasiado larga',
+  noSpecialChars: 'La contraseña debe contener caracteres especiales',
+  noAlpha: 'La contraseña debe contener caracteres alfabéticos',
+  noNumeric: 'La contraseña debe contener caracteres numéricos',
+  noUppercase: 'La contraseña debe contener caracteres en mayúscula',
+  noLowercase: 'La contraseña debe contener caracteres en minúscula',
+  notEnoughSpecialChars: 'No hay suficientes caracteres especiales',
+  notEnoughAlpha: 'No hay suficientes caracteres alfabéticos',
+  notEnoughNumeric: 'No hay suficientes caracteres numéricos',
+  notEnoughUppercase: 'No hay suficientes caracteres en mayúscula',
+  notEnoughLowercase: 'No hay suficientes caracteres en minúscula',
+  blacklisted: 'La contraseña está en la lista negra',
+  customRuleFailed: 'La regla personalizada falló',
+};
