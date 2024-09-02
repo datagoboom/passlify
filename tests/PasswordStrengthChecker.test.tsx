@@ -1,59 +1,51 @@
-import Passlify from '../src/core/Passlify';
+import React from 'react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import PasswordStrengthChecker from '../src/react/PasswordStrengthChecker';
 
-describe('Passlify', () => {
-  const options = {
-    min_characters: 8,
-    max_characters: 20,
-    special_chars: true,
-    min_special_chars: 1,
-    alpha: true,
-    numeric: true,
-    min_alpha: 1,
-    min_numeric: 1,
-    uppercase: true,
-    lowercase: true,
-    min_uppercase: 1,
-    min_lowercase: 1,
-    blacklist: ['password123', 'qwerty123'],
-  };
+// Mock the Passlify class
+jest.mock('../src/core/Passlify', () => {
+  return jest.fn().mockImplementation(() => ({
+    check: jest.fn().mockReturnValue({
+      isValid: true,
+      score: 3,
+      errors: [],
+      entropy: 50,
+    }),
+    generatePassword: jest.fn().mockReturnValue('GeneratedP@ssw0rd'),
+  }));
+});
 
-  const passlify = new Passlify(options);
-
-  test('valid password passes all checks', () => {
-    const result = passlify.check('P@ssw0rd123!');
-    expect(result.isValid).toBe(true);
-    expect(result.errors).toHaveLength(0);
+describe('PasswordStrengthChecker', () => {
+  test('renders without crashing', () => {
+    const { getByText, getByPlaceholderText } = render(<PasswordStrengthChecker />);
+    expect(getByText('Password Strength Checker')).toBeInTheDocument();
+    expect(getByPlaceholderText('Enter password')).toBeInTheDocument();
   });
 
-  test('short password fails', () => {
-    const result = passlify.check('Sh0rt!');
-    expect(result.isValid).toBe(false);
-    expect(result.errors).toContain('Password is too short');
+  test('displays validation result when password is entered', async () => {
+    const { getByPlaceholderText, getByText } = render(<PasswordStrengthChecker />);
+    const input = getByPlaceholderText('Enter password');
+    
+    fireEvent.change(input, { target: { value: 'TestP@ssw0rd' } });
+    
+    await waitFor(() => {
+      expect(getByText('Valid password')).toBeInTheDocument();
+      expect(getByText('Strength score: 3 / 4')).toBeInTheDocument();
+      expect(getByText('Entropy: 50.00 bits')).toBeInTheDocument();
+    });
   });
 
-  test('password without special characters fails', () => {
-    const result = passlify.check('Password123');
-    expect(result.isValid).toBe(false);
-    expect(result.errors).toContain('Password must contain special characters');
-  });
-
-  test('blacklisted password fails', () => {
-    const result = passlify.check('password123');
-    expect(result.isValid).toBe(false);
-    expect(result.errors).toContain('Password is in the blacklist');
-  });
-
-  test('generated password is valid', () => {
-    const generatedPassword = passlify.generatePassword();
-    const result = passlify.check(generatedPassword);
-    expect(result.isValid).toBe(true);
-    expect(result.errors).toHaveLength(0);
-  });
-
-  test('async check returns same result as sync check', async () => {
-    const password = 'P@ssw0rd123!';
-    const syncResult = passlify.check(password);
-    const asyncResult = await passlify.checkAsync(password);
-    expect(asyncResult).toEqual(syncResult);
+  test('generates a valid password when Generate button is clicked', async () => {
+    const { getByText, getByPlaceholderText } = render(<PasswordStrengthChecker />);
+    const generateButton = getByText('Generate');
+    
+    fireEvent.click(generateButton);
+    
+    await waitFor(() => {
+      const input = getByPlaceholderText('Enter password') as HTMLInputElement;
+      expect(input.value).toBe('GeneratedP@ssw0rd');
+      expect(getByText('Valid password')).toBeInTheDocument();
+    });
   });
 });

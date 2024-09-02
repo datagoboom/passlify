@@ -1,7 +1,8 @@
 import Passlify from '../src/core/Passlify';
+import { PasslifyOptions } from '../src/core/types';
 
 describe('Passlify', () => {
-  const options = {
+  const options: PasslifyOptions = {
     min_characters: 8,
     max_characters: 20,
     special_chars: true,
@@ -23,6 +24,9 @@ describe('Passlify', () => {
     const result = passlify.check('P@ssw0rd123!');
     expect(result.isValid).toBe(true);
     expect(result.errors).toHaveLength(0);
+    expect(result.score).toBeGreaterThanOrEqual(0);
+    expect(result.score).toBeLessThanOrEqual(4);
+    expect(result.entropy).toBeGreaterThan(0);
   });
 
   test('short password fails', () => {

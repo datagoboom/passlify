@@ -1,8 +1,6 @@
-// src/core/Passlify.ts
-
 import zxcvbn from 'zxcvbn';
-import { PasslifyOptions, ValidationResult, ErrorMessages } from './types';
-import { generatePassword, calculateEntropy } from './utils';
+import { PasslifyOptions, ErrorMessages } from './types';
+import { calculateEntropy, generatePassword } from './utils';
 import en from '../locales/en';
 import es from '../locales/es';
 
@@ -110,3 +108,10 @@ class Passlify {
 }
 
 export default Passlify;
+
+interface ValidationResult {
+  isValid: boolean;
+  score: number;
+  errors: string[];
+  entropy: number;
+}

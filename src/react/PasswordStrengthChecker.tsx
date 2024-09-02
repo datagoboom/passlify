@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Passlify from '../core/Passlify';
+import { ValidationResult, PasslifyOptions } from '../core/types';
 
-const options = {
+const options: PasslifyOptions = {
   min_characters: 8,
   max_characters: 48,
   special_chars: true,
@@ -19,11 +20,11 @@ const options = {
 
 const passlify = new Passlify(options);
 
-const PasswordStrengthChecker = () => {
-  const [password, setPassword] = useState('');
-  const [result, setResult] = useState(null);
+const PasswordStrengthChecker: React.FC = () => {
+  const [password, setPassword] = useState<string>('');
+  const [result, setResult] = useState<ValidationResult | null>(null);
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
     const validationResult = passlify.check(newPassword);
