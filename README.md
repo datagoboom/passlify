@@ -1,4 +1,5 @@
-# Passlify
+![image](https://github.com/user-attachments/assets/22134253-1840-4309-bab6-f1d4a87f4e94)
+
 
 Passlify is a robust password validation and generation library for JavaScript and TypeScript, with built-in React components for easy integration into web applications.
 
